@@ -88,7 +88,7 @@ export default defineComponent({
                 <th v-for="(head) in headers" v-bind:key="head.name" v-bind:class="getClass(head.align)"
                     @click="() => sortDataByKey(head)" scope="col">{{
                         head.name
-                    }} <span v-if="currentSortKey === head.key">{{ sortOrderAsc ? '&#8593;' : '&#8595;' }}</span></th>
+                    }} <span v-if="head.sortable">{{ currentSortKey === head.key ? (sortOrderAsc ? '&#8593;' : '&#8595;') : '&#8597;' }}</span></th>
             </tr>
         </thead>
         <tbody>
