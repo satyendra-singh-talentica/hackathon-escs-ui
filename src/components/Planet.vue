@@ -1,15 +1,14 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import { useStarWarsApiService } from '../api/starwarsapi.service';
 import TabularView, { type Header } from '../components/generic-components/TabularView.vue';
 
 
 export default defineComponent({
+    components: { TabularView },
     setup() {
         const swapi = useStarWarsApiService();
-        return { swapi };
-    },
-    data() {
+
         const headers: Header[] = [
             {
                 name: 'Name',
@@ -31,41 +30,52 @@ export default defineComponent({
                 align: 'right',
             },
             {
-                name: 'Pupulation',
+                name: 'Population',
                 key: 'population',
                 type: 'number',
                 align: 'right',
                 sortable: true,
-            }
+            },
         ];
-        const planets: Planet[] = [];
+
+        const planets = ref<Planet[]>([]);
+        const totalPlanets = ref(0);
+        const pageNumber = ref(1);
+
+        const getPlanets = async () => {
+            const planetsData = await swapi.getPlanets(pageNumber.value);
+            if (planetsData) {
+                setTotalPlanets(planetsData.count);
+                if (planetsData.results && planetsData.results.length) {
+                    setPlanets(planetsData.results);
+                    incrementPageNumber();
+                }
+            }
+        };
+
+        const setTotalPlanets = (count: number) => {
+            totalPlanets.value = count;
+        };
+
+        const setPlanets = (newPlanets: Planet[]) => {
+            planets.value = [...planets.value, ...newPlanets];
+        };
+
+        const incrementPageNumber = () => {
+            pageNumber.value += 1;
+        };
+
+        onMounted(async () => {
+            await getPlanets();
+        });
+
         return {
             headers,
             planets,
-            totalPlanets: -1,
-            pageNumber: 1,
-            showLoadMore: false,
+            totalPlanets,
+            getPlanets,
         };
     },
-    methods: {
-        async getPlanets() {
-            const planetsData = await this.swapi.getPlanets(this.pageNumber);
-            if (planetsData) {
-                this.showLoadMore = planetsData.next ? true : false;
-                this.totalPlanets = planetsData.count;
-                if (planetsData.results && planetsData.results.length) {
-                    this.planets = [...this.planets, ...planetsData.results];
-                    this.pageNumber += 1;
-                } else {
-                    this.showLoadMore = false;
-                }
-            }
-        }
-    },
-    async created() {
-        await this.getPlanets();
-    },
-    components: { TabularView, }
 });
 </script>
 
@@ -80,7 +90,8 @@ export default defineComponent({
                     <div class="card-body">
                         <TabularView :headers='headers' :data='planets' showRowNumbers />
                         <div class="text-center">
-                            <button v-if="showLoadMore" @click="getPlanets" type="button" class="btn btn-link">Load
+                            <button v-if="planets.length < totalPlanets" @click="getPlanets" type="button"
+                                class="btn btn-link">Load
                                 More</button>
                         </div>
                     </div>
