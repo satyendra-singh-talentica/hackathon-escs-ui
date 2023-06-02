@@ -41,9 +41,12 @@ export default defineComponent({
         const planets = ref<Planet[]>([]);
         const totalPlanets = ref(0);
         const pageNumber = ref(1);
+        const loading = ref(false);
 
         const getPlanets = async () => {
+            loading.value = true;
             const planetsData = await swapi.getPlanets(pageNumber.value);
+            loading.value = false;
             if (planetsData) {
                 setTotalPlanets(planetsData.count);
                 if (planetsData.results && planetsData.results.length) {
@@ -73,6 +76,7 @@ export default defineComponent({
             headers,
             planets,
             totalPlanets,
+            loading,
             getPlanets,
         };
     },
@@ -84,15 +88,18 @@ export default defineComponent({
         <div class="row mb-4">
             <div class="col">
                 <div class="card">
-                    <div class="card-header h6">
+                    <div class="card-header h3">
                         Planets <span v-if="totalPlanets >= 0">({{ totalPlanets }})</span>
                     </div>
                     <div class="card-body">
                         <TabularView :headers='headers' :data='planets' showRowNumbers />
+                        <div v-if="loading" class="text-center">
+                            <span>Loading...</span>
+                        </div>
                         <div class="text-center">
                             <button v-if="planets.length < totalPlanets" @click="getPlanets" type="button"
-                                class="btn btn-link">Load
-                                More</button>
+                                class="btn btn-link" v-bind:disabled="loading">
+                                Load More</button>
                         </div>
                     </div>
                 </div>
