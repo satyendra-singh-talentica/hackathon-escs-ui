@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import Planet from './components/Planet.vue';
+import Titlebar from './Titlebar.vue';
+
+
 </script>
 
 <template>
+  <div>
+    <Titlebar />
+  </div>
   <div class="container">
-    <Planet />
+    <router-view></router-view>
   </div>
 </template>
