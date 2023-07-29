@@ -54,9 +54,7 @@ export default {
             <div class="card-body">
                 <h5 class="card-title">{{ project.name }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ project.tech.join() }}</h6>
-                <p class="card-text">{{ project.description }}</p>
             </div>
         </div>
-        <!-- <pre>{{ JSON.stringify(searchResults, 4) }}</pre> -->
     </div>
 </template>

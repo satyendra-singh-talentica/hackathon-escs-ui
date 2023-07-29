@@ -14,11 +14,11 @@ export default {
     methods: {
     async getUser() {
       this.loading = true;
-      const userData = await this.api.getUser(this.email);
+      const userData = await this.api.getUserByEmail(this.email);
       this.loading = false;
       if (userData && userData.id) {
         this.userStore.setUser(userData);
-        this.$router.push('/users')
+        this.$router.push(`/users/${userData.id}`)
       }
     },
   }

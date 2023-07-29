@@ -32,7 +32,7 @@ app.use(createRouter({
             component: Login,
         },
         {
-            path: "/users",
+            path: "/users/:id",
             name: "users",
             component: User,
         },

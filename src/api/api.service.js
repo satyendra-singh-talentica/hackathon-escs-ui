@@ -3,8 +3,12 @@ import axios from 'axios';
 class ApiService {
 
     baseUrl = 'http://localhost:9000';
-        
-    getUser(email) {
+    
+    getUser(userId) {
+        return this.get(`/users/${userId}`);
+    }
+
+    getUserByEmail(email) {
         return this.get(`/users?email=${email}`);
     }
 
