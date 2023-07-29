@@ -1,19 +1,26 @@
-<script setup lang="ts">
-import { ref } from 'vue';
+<script>
 import { useApiService } from './api/api.service';
-import { useUser } from './stores/user.store';
+import { useUserStore } from './stores/user.store';
 
-const email = ref('');
-const loading = ref(false);
-const api = useApiService();
-const user = useUser();
-
-async function getUser() {
-  loading.value = true;
-  const userData = await api.getUser(email.value);
-  loading.value = false;
-  if (userData && userData.id) {
-    user.setUser(userData);
+export default {
+  data() {
+    return {
+      email: '',
+      loading: false,
+      userStore: useUserStore(),
+      api: useApiService(),
+    };
+  },
+    methods: {
+    async getUser() {
+      this.loading = true;
+      const userData = await this.api.getUser(this.email);
+      this.loading = false;
+      if (userData && userData.id) {
+        this.userStore.setUser(userData);
+        this.$router.push('/users')
+      }
+    },
   }
 }
 </script>

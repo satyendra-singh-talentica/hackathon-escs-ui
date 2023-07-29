@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-export const useUser = defineStore('userStore', {
+export const useUserStore = defineStore('userStore', {
     state: () => {
         return {
             id: 0,
@@ -16,7 +16,7 @@ export const useUser = defineStore('userStore', {
         }
     },
     actions: {
-        setUser(userData: any) {
+        setUser(userData) {
             this.id = userData.id;
             this.employeeId = userData.employeeId;
             this.name = userData.name;
@@ -28,5 +28,13 @@ export const useUser = defineStore('userStore', {
             this.dateOfJoining = userData.dateOfJoining;
             this.dateOfBirth = userData.dateOfBirth;
         },
-    }
+    },
+    getters: {
+        getUserName() {
+            return this.name;
+        },
+        getUserId() {
+            return this.id;
+        },
+    },
 });

@@ -1,5 +1,6 @@
-<script setup lang="ts">
+<script setup>
 import Search from './Search.vue';
+
 
 
 </script>
@@ -7,7 +8,7 @@ import Search from './Search.vue';
 <template>
   <div class="container">
     <div class="col-lg-12 text-center mt-5">
-      <h1 class="display-1">ESCS - Find the guy</h1>
+      <h1 class="display-1">ESCS - Find the tech</h1>
     </div>
 
     <Search />
