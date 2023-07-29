@@ -24,8 +24,22 @@ class ApiService {
         return this.get(`/projects?userId=${userId}`);
     }
 
+    createProject(data) {
+        return this.post('/projects', data);
+    }
+
     get(endpoint) {
         return axios.get(`${this.baseUrl}${endpoint}`).then((value) => value.data).catch((reason) => {
+            let message = 'Network failure';
+            if (reason.response && reason.response.message) {
+                message = reason.response.message;
+            }
+            console.error(`${message} ${endpoint}`);
+        });
+    }
+
+    post(endpoint, data) {
+        return axios.post(`${this.baseUrl}${endpoint}`, data).then((value) => value.data).catch((reason) => {
             let message = 'Network failure';
             if (reason.response && reason.response.message) {
                 message = reason.response.message;

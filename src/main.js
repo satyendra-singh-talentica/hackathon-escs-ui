@@ -8,6 +8,7 @@ import About from './About.vue'
 import Login from './Login.vue'
 import User from './User.vue'
 import Project from './Project.vue'
+import CreateProject from './CreateProject.vue'
 
 const app = createApp(App);
 
@@ -41,6 +42,11 @@ app.use(createRouter({
             name: "projects",
             component: Project,
         },
+        {
+            path: "/add-project",
+            name: "add-project",
+            component: CreateProject,
+        }
     ],
 }));
 
