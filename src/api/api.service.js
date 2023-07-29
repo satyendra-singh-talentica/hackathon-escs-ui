@@ -28,6 +28,18 @@ class ApiService {
         return this.post('/projects', data);
     }
 
+    createHp(data) {
+        return this.post('/hps', data);
+    }
+
+    getHp(id) {
+        return this.get(`/hps/${id}`);
+    }
+
+    getHps(userId) {
+        return this.get(`/hps?userId=${userId}`);
+    }
+
     get(endpoint) {
         return axios.get(`${this.baseUrl}${endpoint}`).then((value) => value.data).catch((reason) => {
             let message = 'Network failure';

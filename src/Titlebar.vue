@@ -16,6 +16,9 @@ export default {
         },
         addProject() {
             this.$router.push(`/add-project`)
+        },
+        addHp() {
+            this.$router.push(`/add-hp`)
         }
     }
 }
@@ -37,8 +40,13 @@ export default {
             </div>
 
             <div class="d-inline-flex text-right ml-2">
-                <button v-if="$route.path.includes('/users')" @click="addProject" type="button" class="btn btn-light"><i
-                        class="fa fa-add"></i></button>
+                <button v-if="$route.path.includes('/users') && userStore.getUserName" @click="addProject" type="button" class="btn btn-light"><i
+                        class="fa fa-add"></i> Project</button>
+            </div>
+
+            <div class="d-inline-flex text-right ml-2">
+                <button v-if="$route.path.includes('/users') && userStore.getUserName" @click="addHp" type="button" class="btn btn-light"><i
+                        class="fa fa-add"></i> Hard Problem</button>
             </div>
 
             <div class="d-inline-flex text-right ml-2">

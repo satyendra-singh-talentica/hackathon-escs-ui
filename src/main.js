@@ -9,6 +9,8 @@ import Login from './Login.vue'
 import User from './User.vue'
 import Project from './Project.vue'
 import CreateProject from './CreateProject.vue'
+import CreateHp from './CreateHp.vue';
+import Hp from './Hp.vue';
 
 const app = createApp(App);
 
@@ -43,9 +45,19 @@ app.use(createRouter({
             component: Project,
         },
         {
+            path: "/hps/:id",
+            name: "hps",
+            component: Hp,
+        },
+        {
             path: "/add-project",
             name: "add-project",
             component: CreateProject,
+        },
+        {
+            path: "/add-hp",
+            name: "add-hp",
+            component: CreateHp,
         }
     ],
 }));

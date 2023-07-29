@@ -1,23 +1,23 @@
 <script>
-import ProjectCard from './ProjectCard.vue';
+import HpCard from './HpCard.vue';
 import UserCard from './UserCard.vue';
 import { useApiService } from './api/api.service';
 
 export default {
   data() {
     return {
-      project: null,
+      hp: null,
       loading: false,
       api: useApiService(),
     };
   },
   methods: {
-    async getProject(projectId) {
+    async getHp(hpId) {
       this.loading = true;
-      const projectData = await this.api.getProject(projectId);
+      const hpData = await this.api.getHp(hpId);
       this.loading = false;
-      if (projectData && projectData.id) {
-        this.project = projectData;
+      if (hpData && hpData.id) {
+        this.hp = hpData;
       }
     },
     userDetail(userId) {
@@ -25,21 +25,21 @@ export default {
     }
   },
   mounted() {
-    this.getProject(this.$route.params.id);
+    this.getHp(this.$route.params.id);
   },
-  components: { ProjectCard, UserCard }
+  components: { HpCard, UserCard }
 }
 </script>
 
 <template>
   <div class="col-md-12 border border-primary p-3">
 
-    <div v-if="project">
-      <h6>Project:</h6>
-      <ProjectCard :project="project" />
+    <div v-if="hp">
+      <h6>Hard-Problem:</h6>
+      <HpCard :hp="hp" />
 
       <h6>Author:</h6>
-      <UserCard :user="project.user" min @click="() => userDetail(project.user.id)" />
+      <UserCard :user="hp.user" min @click="() => userDetail(hp.user.id)" />
     </div>
   </div>
 </template>
