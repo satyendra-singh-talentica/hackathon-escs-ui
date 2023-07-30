@@ -29,6 +29,16 @@ export default {
         this.$router.push(`/users/${this.userStore.getUserId}`)
       }
     },
+    async refineDescription() {
+      this.loading = true;
+      const resp = await this.api.createAIPrompt({
+        prompt: `Refine and correct grammer in : ${this.hpDescription}`
+      });
+      this.loading = false;
+      if (resp) {
+        this.hpDescription = resp;
+      }
+    }
   }
 }
 </script>
@@ -45,6 +55,11 @@ export default {
         <input type="text" v-model="hpDescription" class="form-control" id="hpdescriptioninput"
           aria-describedby="emailHelp">
       </div>
+      <div class="row mb-3">
+        <div class="col-mb-6">
+          <button v-bind:disabled="loading" class="btn btn-sm btn-secondary" @click.prevent="refineDescription">{{ loading ? `Refining...` : `Refine with AI`}}</button>
+        </div>
+      </div>
       <div class="mb-3">
         <label for="hpdoclinkinput" class="form-label">Doc Link</label>
         <input type="text" v-model="hpDoclink" class="form-control" id="hpdoclinkinput"
@@ -54,6 +69,6 @@ export default {
         <label for="hptechinput" class="form-label">Tech Stack</label>
         <input type="text" v-model="hpTech" class="form-control" id="hptechinput" aria-describedby="emailHelp">
       </div>
-      <button type="submit" class="btn btn-primary">Add Hard Problem</button>
+      <button v-bind:disabled="loading" type="submit" class="btn btn-primary">Add Hard Problem</button>
   </form>
 </div></template>

@@ -40,6 +40,10 @@ class ApiService {
         return this.get(`/hps?userId=${userId}`);
     }
 
+    createAIPrompt(data) {
+        return this.post('/chatgpt', data);
+    }
+
     get(endpoint) {
         return axios.get(`${this.baseUrl}${endpoint}`).then((value) => value.data).catch((reason) => {
             let message = 'Network failure';

@@ -33,6 +33,16 @@ export default {
         this.$router.push(`/users/${this.userStore.getUserId}`)
       }
     },
+    async refineDescription() {
+      this.loading = true;
+      const resp = await this.api.createAIPrompt({
+        prompt: `Refine and correct grammer in : ${this.projectDescription}`
+      });
+      this.loading = false;
+      if (resp) {
+        this.projectDescription = resp;
+      }
+    }
   }
 }
 </script>
@@ -55,6 +65,11 @@ export default {
           aria-describedby="emailHelp">
       </div>
       <div class="row mb-3">
+        <div class="col-mb-6">
+          <button v-bind:disabled="loading" class="btn btn-sm btn-secondary" @click.prevent="refineDescription">{{ loading ? `Refining...` : `Refine with AI`}}</button>
+        </div>
+      </div>
+      <div class="row mb-3">
         <div class="col-md-6">
           <label for="projectstartdateinput" class="form-label">Start Date</label>
           <input type="date" v-model="projectStartDate" class="form-control" id="projectstartdateinput"
@@ -70,6 +85,7 @@ export default {
         <label for="projecttechinput" class="form-label">Tech Stack</label>
         <input type="text" v-model="projectTech" class="form-control" id="projecttechinput" aria-describedby="emailHelp">
       </div>
-      <button type="submit" class="btn btn-primary">Add Project</button>
-  </form>
-</div></template>
+      <button v-bind:disabled="loading" type="submit" class="btn btn-primary">Add Project</button>
+    </form>
+  </div>
+</template>
