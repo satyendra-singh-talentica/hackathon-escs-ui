@@ -52,7 +52,7 @@ export default {
         </form>
     </div>
 
-    <div v-if="searchString && searchResults" class="col-md-8 offset-md-2 mt-1 border border-primary p-3">
+    <div v-if="searchString && searchResults" class="col-md-8 offset-md-2 mt-1 border border-primary pt-3 px-3">
         <nav class="nav nav-tabs" id="nav-tab" role="tablist">
             <a v-bind:class="getTabClass('projects')" @click="setActiveTab('projects')" data-bs-toggle="tab" href="#"
                 role="tab" aria-controls="nav-home" aria-selected="true">Projects ({{ searchResults.projects.length
@@ -61,7 +61,7 @@ export default {
                 aria-controls="nav-home" aria-selected="true">Hard-Problems ({{ searchResults.hps.length
                 }})</a>
         </nav>
-        <div class="tab-content" id="nav-tabContent">
+        <div class="tab-content pt-3" id="nav-tabContent">
             <div v-bind:class="getTabBodyClass('projects')" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div v-for="(project, index) in searchResults.projects" class="card mb-3"
                     @click="() => projectDetail(project)">

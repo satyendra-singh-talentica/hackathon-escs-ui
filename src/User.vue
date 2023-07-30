@@ -62,21 +62,17 @@ export default {
       <UserCard :user="user" />
     </div>
 
-    <div class="col-lg-12 ">
+    <div v-if="projects && projects.length" class="col-lg-12 ">
       <h6>Projects:</h6>
-      <div v-if="projects && projects.length">
-        <div v-for="(project) in projects">
-          <ProjectCard :project="project" />
-        </div>
+      <div v-for="(project) in projects">
+        <ProjectCard :project="project" />
       </div>
     </div>
 
-    <div class="col-lg-12 ">
+    <div v-if="hps && hps.length" class="col-lg-12 ">
       <h6>Hard Problems:</h6>
-      <div v-if="hps && hps.length">
-        <div v-for="(hp) in hps">
-          <HpCard :hp="hp" />
-        </div>
+      <div v-for="(hp) in hps">
+        <HpCard :hp="hp" />
       </div>
     </div>
 
