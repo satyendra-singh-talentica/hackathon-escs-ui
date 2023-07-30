@@ -32,7 +32,7 @@ export default {
     async refineDescription() {
       this.loading = true;
       const resp = await this.api.createAIPrompt({
-        prompt: `Refine and correct grammer in : ${this.hpDescription}`
+        prompt: `Write a brief description for ${this.hpDescription}`
       });
       this.loading = false;
       if (resp) {
