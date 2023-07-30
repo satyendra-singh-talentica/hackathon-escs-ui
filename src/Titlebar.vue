@@ -27,29 +27,29 @@ export default {
 <template>
     <div class="row p-2">
         <div class="col d-flex">
-            <p class="text-start flex-grow-1">
+            <div class="text-start flex-grow-1">
                 <router-link v-if="$route.path !== '/'" to="/" custom v-slot="{ navigate }">
                     <button @click="navigate" role="link" type="button" class="btn btn-light"><i
                             class="fa fa-home"></i></button>
                 </router-link>
-            </p>
+            </div>
 
-            <div class="d-inline-flex text-right ml-2">
+            <div class="d-inline-flex text-right">
                 <button v-if="$route.path.includes('/users')" @click="print" type="button" class="btn btn-light"><i
                         class="fa fa-print"></i></button>
             </div>
 
-            <div class="d-inline-flex text-right ml-2">
+            <div class="d-inline-flex text-right">
                 <button v-if="$route.path.includes('/users') && userStore.getUserName" @click="addProject" type="button" class="btn btn-light"><i
                         class="fa fa-add"></i> Project</button>
             </div>
 
-            <div class="d-inline-flex text-right ml-2">
+            <div class="d-inline-flex text-right">
                 <button v-if="$route.path.includes('/users') && userStore.getUserName" @click="addHp" type="button" class="btn btn-light"><i
                         class="fa fa-add"></i> Hard Problem</button>
             </div>
 
-            <div class="d-inline-flex text-right ml-2">
+            <div class="d-inline-flex text-right">
                 <router-link v-if="userStore && userStore.getUserName" :to="getPath()" custom v-slot="{ navigate }">
                     <button @click="navigate" role="link" type="button" class="btn btn-light"><i class="fa fa-user"></i>
                         {{ userStore.getUserName }}</button>
